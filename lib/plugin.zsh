@@ -131,6 +131,7 @@ geometry_plugin_check() {
 
 # Renders the registered plugins
 geometry_plugin_render() {
+  EXIT_VALUE=$?
   local ctx=${1:-secondary}
   local render=""
   local ctx_prompt=""

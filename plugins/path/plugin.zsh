@@ -52,15 +52,15 @@ geometry_prompt_path_setup() {
   fi
 }
 
-geometry_prompt_path_check() {}
+geometry_prompt_path_check() {
+}
 
 geometry_prompt_path_render() {
-  if [ $? -eq 0 ] ; then
-    PROMPT_SYMBOL=$GEOMETRY_SYMBOL_PROMPT
+  if [ $EXIT_VALUE -eq 0 ] ; then
+    PROMPT_SYMBOL=$GEOMETRY_PROMPT
   else
-    PROMPT_SYMBOL=$GEOMETRY_SYMBOL_EXIT_VALUE
+    PROMPT_SYMBOL=$GEOMETRY_EXIT_VALUE
   fi
-
   if $PROMPT_GEOMETRY_COLORIZE_ROOT && [[ $UID == 0 || $EUID == 0 ]]; then
     GEOMETRY_PROMPT=$(prompt_geometry_colorize $GEOMETRY_COLOR_ROOT $GEOMETRY_SYMBOL_ROOT)
   fi
@@ -69,6 +69,5 @@ geometry_prompt_path_render() {
   if $GEOMETRY_PROMPT_BASENAME; then
     dir=$(basename $PWD)
   fi
-
-  echo "$GEOMETRY_PROMPT_PREFIX$GEOMETRY_PROMPT_PREFIX_SPACER%${#PROMPT_SYMBOL}{%(?.$GEOMETRY_PROMPT.$GEOMETRY_EXIT_VALUE)%}$GEOMETRY_SYMBOL_SPACER%F{$GEOMETRY_COLOR_DIR}$dir%f$GEOMETRY_DIR_SPACER$GEOMETRY_PROMPT_SUFFIX"
+  echo "$GEOMETRY_PROMPT_PREFIX$GEOMETRY_PROMPT_PREFIX_SPACER$PROMPT_SYMBOL$GEOMETRY_SYMBOL_SPACER%F{$GEOMETRY_COLOR_DIR}$dir%f$GEOMETRY_DIR_SPACER$GEOMETRY_PROMPT_SUFFIX"
 }
